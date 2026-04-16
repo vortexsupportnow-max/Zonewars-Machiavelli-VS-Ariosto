@@ -799,21 +799,25 @@
       /* ====================================================
        SECTION 2 — CONTESTO STORICO
     ==================================================== */
-      .timeline-h {
-        display: flex;
+      .timeline-outer {
         margin: 4rem 0;
         overflow-x: auto;
-        padding-bottom: 2rem;
+        padding: 1.5rem 0 2rem;
         scroll-snap-type: x mandatory;
         scrollbar-width: thin;
         scrollbar-color: var(--gold) transparent;
       }
-      .timeline-h::-webkit-scrollbar {
+      .timeline-outer::-webkit-scrollbar {
         height: 6px;
       }
-      .timeline-h::-webkit-scrollbar-thumb {
+      .timeline-outer::-webkit-scrollbar-thumb {
         background: var(--gold);
         border-radius: 10px;
+      }
+
+      .timeline-h {
+        display: flex;
+        min-width: max-content;
       }
 
       .timeline-event {
@@ -830,6 +834,7 @@
         left: 0;
         right: 0;
         height: 2px;
+        z-index: 0;
         background: linear-gradient(
           90deg,
           rgba(201, 162, 39, 0.1),
@@ -852,7 +857,7 @@
         border: 4px solid var(--ink);
         margin: 0 auto 1.5rem;
         position: relative;
-        z-index: 1;
+        z-index: 2;
         transition: var(--transition);
         box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.2);
       }
@@ -1002,33 +1007,37 @@
         margin-bottom: 2rem;
       }
       .bio-avatar {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         border: 3px solid var(--gold);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-head);
-        font-size: 2rem;
-        font-style: italic;
-        font-weight: 700;
-        color: var(--parchment-light);
-        background: linear-gradient(
-          135deg,
-          var(--crimson),
-          var(--crimson-dark)
-        );
+        overflow: hidden;
         box-shadow: 0 5px 15px rgba(122, 31, 46, 0.4);
         flex-shrink: 0;
+        transition:
+          transform 0.5s,
+          box-shadow 0.5s;
+      }
+      .bio-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
         transition: transform 0.5s;
       }
       .bio-card:hover .bio-avatar {
-        transform: rotateY(180deg);
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(122, 31, 46, 0.6);
+      }
+      .bio-card:hover .bio-avatar img {
+        transform: scale(1.05);
       }
       .bio-card.ariosto .bio-avatar {
-        background: linear-gradient(135deg, var(--sepia), var(--sepia-dark));
         box-shadow: 0 5px 15px rgba(139, 105, 20, 0.4);
+      }
+      .bio-card.ariosto:hover .bio-avatar {
+        box-shadow: 0 8px 25px rgba(139, 105, 20, 0.6);
       }
       .bio-name {
         font-family: var(--font-head);
@@ -1221,168 +1230,124 @@
       }
 
       /* ====================================================
-       SECTION 5 — ANALISI STRUTTURALE (Accordion)
+       SECTION 5 — ANALISI STRUTTURALE (Comparison Table)
     ==================================================== */
-      .accordion {
+      .analisi-comparison {
         margin-top: 3rem;
-      }
-      .accordion-item {
-        margin-bottom: 1rem;
+        border: 1px solid rgba(201, 162, 39, 0.35);
         border-radius: var(--radius);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      }
-      .accordion-toggle {
-        display: none;
-      }
-
-      .accordion-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem 2rem;
-        background: linear-gradient(135deg, #ffffff, var(--parchment-light));
-        border: 1px solid rgba(201, 162, 39, 0.3);
-        border-radius: var(--radius);
-        cursor: pointer;
-        transition: var(--transition);
-        user-select: none;
-        position: relative;
-        z-index: 2;
-      }
-      .accordion-header:hover {
-        background: #fff;
-        border-color: var(--gold);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(201, 162, 39, 0.15);
-      }
-      .accordion-title {
-        font-family: var(--font-head);
-        font-size: 1.2rem;
-        color: var(--ink);
-        font-weight: 700;
-      }
-      .accordion-arrow {
-        font-size: 1.2rem;
-        color: var(--gold);
-        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      }
-
-      .accordion-body {
-        max-height: 0;
         overflow: hidden;
-        transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        background: #fff;
-        border: 1px solid transparent;
-        border-top: none;
-        border-radius: 0 0 var(--radius) var(--radius);
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      .accordion-inner {
-        padding: 2rem;
-        border-top: 1px dashed rgba(201, 162, 39, 0.3);
+        box-shadow: 0 10px 35px var(--shadow-warm);
       }
 
-      .accordion-toggle:checked ~ .accordion-header {
-        border-radius: var(--radius) var(--radius) 0 0;
-        border-color: var(--gold);
-        background: #fff;
-        transform: translateY(0);
-        box-shadow: none;
-      }
-      .accordion-toggle:checked ~ .accordion-header .accordion-arrow {
-        transform: rotate(180deg);
-      }
-      .accordion-toggle:checked ~ .accordion-body {
-        max-height: 800px;
-        border-color: var(--gold);
-        opacity: 1;
-        transform: translateY(0);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-      }
-
-      .compare-row {
+      .analisi-header-row {
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        gap: 2rem;
-        align-items: stretch;
+        grid-template-columns: 1fr 1fr;
       }
-      .compare-box {
-        padding: 1.5rem;
-        border-radius: var(--radius);
+
+      .analisi-col-head {
+        padding: 1.8rem 2rem;
         text-align: center;
-        transition: var(--transition);
       }
-      .compare-box.m {
-        background: rgba(122, 31, 46, 0.05);
-        border: 1px solid rgba(122, 31, 46, 0.2);
+      .analisi-col-head.machiavelli {
+        background: linear-gradient(
+          135deg,
+          var(--crimson-dark),
+          var(--crimson)
+        );
+        border-right: 1px solid rgba(201, 162, 39, 0.3);
       }
-      .compare-box.m:hover {
-        background: rgba(122, 31, 46, 0.08);
-        border-color: var(--crimson);
-        box-shadow: 0 5px 15px rgba(122, 31, 46, 0.1);
+      .analisi-col-head.ariosto {
+        background: linear-gradient(
+          135deg,
+          var(--sepia-dark),
+          var(--sepia)
+        );
       }
-      .compare-box.a {
-        background: rgba(139, 105, 20, 0.05);
-        border: 1px solid rgba(139, 105, 20, 0.2);
+      .analisi-col-name {
+        font-family: var(--font-head);
+        font-size: 1.4rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--parchment-light);
+        display: block;
       }
-      .compare-box.a:hover {
-        background: rgba(139, 105, 20, 0.08);
-        border-color: var(--sepia);
-        box-shadow: 0 5px 15px rgba(139, 105, 20, 0.1);
+      .analisi-col-years {
+        font-family: var(--font-title);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        color: var(--gold-light);
+        display: block;
+        margin-top: 0.4rem;
       }
-      .compare-label {
+
+      .analisi-section {
+        border-top: 1px solid rgba(201, 162, 39, 0.2);
+      }
+      .analisi-section-title {
+        background: rgba(201, 162, 39, 0.07);
+        border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        padding: 0.75rem 2rem;
+        font-family: var(--font-title);
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .analisi-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1px dashed rgba(201, 162, 39, 0.15);
+        transition: background 0.3s;
+      }
+      .analisi-row:last-child {
+        border-bottom: none;
+      }
+      .analisi-row:hover {
+        background: rgba(201, 162, 39, 0.04);
+      }
+
+      .analisi-cell {
+        padding: 1.2rem 2rem;
+      }
+      .analisi-cell.machiavelli {
+        border-right: 1px dashed rgba(201, 162, 39, 0.2);
+      }
+      .analisi-aspect {
         font-family: var(--font-title);
         font-size: 0.7rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--crimson);
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.4rem;
         display: block;
-        font-weight: 700;
       }
-      .compare-box.a .compare-label {
+      .analisi-cell.machiavelli .analisi-aspect {
+        color: var(--crimson);
+      }
+      .analisi-cell.ariosto .analisi-aspect {
         color: var(--sepia);
       }
-      .compare-arrow {
-        font-size: 1.5rem;
-        color: var(--gold);
-        display: flex;
-        align-items: center;
-      }
-
-      @media (max-width: 768px) {
-        .compare-row {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-        .compare-arrow {
-          transform: rotate(90deg);
-          justify-content: center;
-        }
-      }
-
-      .analogy-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        margin-top: 1.5rem;
-      }
-      .analogy-tag {
-        background: rgba(201, 162, 39, 0.08);
-        border: 1px solid rgba(201, 162, 39, 0.3);
-        border-radius: 4px;
-        padding: 0.6rem 1.2rem;
-        font-size: 0.95rem;
+      .analisi-cell p {
+        font-size: 0.97rem;
         color: var(--ink-mid);
-        transition: var(--transition);
+        margin: 0;
+        line-height: 1.65;
       }
-      .analogy-tag:hover {
-        background: var(--gold);
-        color: #fff;
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(201, 162, 39, 0.3);
-        border-color: var(--gold);
+
+      @media (max-width: 640px) {
+        .analisi-header-row,
+        .analisi-row {
+          grid-template-columns: 1fr;
+        }
+        .analisi-col-head.machiavelli {
+          border-right: none;
+          border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+        }
+        .analisi-cell.machiavelli {
+          border-right: none;
+          border-bottom: 1px dashed rgba(201, 162, 39, 0.2);
+        }
       }
 
       /* ====================================================
@@ -1428,10 +1393,50 @@
       }
 
       /* ====================================================
-       QUIZ AVANZATO CON JAVASCRIPT (The Upgrade)
+       QUIZ AVANZATO CON JAVASCRIPT
     ==================================================== */
+
+      /* --- Live tracker --- */
+      .quiz-tracker {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem 1.8rem;
+        background: rgba(25, 15, 8, 0.7);
+        border: 1px solid rgba(201, 162, 39, 0.25);
+        border-radius: var(--radius);
+        backdrop-filter: blur(6px);
+        flex-wrap: wrap;
+      }
+      .qt-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-title);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .qt-correct { color: #6fcf6f; }
+      .qt-wrong   { color: #e57373; }
+      .qt-remain  { color: var(--gold-light); }
+      .qt-badge {
+        font-size: 1.15rem;
+        font-family: var(--font-head);
+        font-weight: 700;
+        min-width: 1.6rem;
+        text-align: center;
+      }
+      .qt-divider {
+        width: 1px;
+        height: 1.2rem;
+        background: rgba(201, 162, 39, 0.3);
+      }
+
+      /* --- Question cards --- */
       .quiz-form {
-        margin-top: 3rem;
+        margin-top: 0;
         display: flex;
         flex-direction: column;
         gap: 2rem;
@@ -1439,20 +1444,42 @@
       .quiz-q {
         background: rgba(25, 15, 8, 0.6);
         backdrop-filter: blur(5px);
-        border: 1px solid rgba(201, 162, 39, 0.2);
+        border: 2px solid rgba(201, 162, 39, 0.2);
         border-radius: var(--radius);
         padding: 2rem;
-        transition: var(--transition);
+        transition:
+          border-color 0.4s ease,
+          box-shadow 0.4s ease,
+          transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
       }
-      .quiz-q:hover {
+      .quiz-q:not(.answered):hover {
         border-color: rgba(201, 162, 39, 0.5);
         transform: translateY(-3px);
       }
+      .quiz-q.correct {
+        border-color: #4caf50;
+        box-shadow:
+          0 0 22px rgba(76, 175, 80, 0.3),
+          0 5px 20px rgba(0, 0, 0, 0.3);
+      }
+      .quiz-q.wrong {
+        border-color: #e53935;
+        box-shadow:
+          0 0 22px rgba(229, 57, 53, 0.3),
+          0 5px 20px rgba(0, 0, 0, 0.3);
+      }
       .quiz-q.shake {
         animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        border-color: #c05050;
-        box-shadow: 0 0 20px rgba(200, 60, 60, 0.3);
+      }
+      .quiz-q.answered .quiz-opt-label {
+        cursor: default;
+        pointer-events: none;
+      }
+      .quiz-q.answered .quiz-opt-label:hover {
+        transform: none;
+        background: rgba(255, 255, 255, 0.02);
+        border-color: rgba(201, 162, 39, 0.15);
       }
 
       .quiz-question {
@@ -1480,6 +1507,7 @@
         box-shadow: inset 0 0 10px rgba(201, 162, 39, 0.2);
       }
 
+      /* --- Options --- */
       .quiz-options {
         list-style: none;
         display: flex;
@@ -1499,7 +1527,12 @@
         cursor: pointer;
         font-size: 1rem;
         color: var(--parchment-dark);
-        transition: var(--transition);
+        transition:
+          border-color 0.3s ease,
+          background 0.3s ease,
+          color 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
         user-select: none;
         background: rgba(255, 255, 255, 0.02);
       }
@@ -1510,15 +1543,36 @@
         border: 2px solid rgba(201, 162, 39, 0.4);
         border-radius: 50%;
         flex-shrink: 0;
-        transition: var(--transition);
+        transition: border-color 0.3s, background 0.3s;
       }
       .quiz-opt-label:hover {
         background: rgba(201, 162, 39, 0.08);
         border-color: rgba(201, 162, 39, 0.4);
         transform: translateX(5px);
       }
+      /* Persistent correct / wrong label styles */
+      .quiz-opt-label.opt-correct {
+        border-color: #4caf50;
+        background: rgba(76, 175, 80, 0.15);
+        color: #a8e6a8;
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+      }
+      .quiz-opt-label.opt-correct::before {
+        border-color: #4caf50;
+        background: #4caf50;
+      }
+      .quiz-opt-label.opt-wrong {
+        border-color: #e53935;
+        background: rgba(229, 57, 53, 0.15);
+        color: #f0a0a0;
+        box-shadow: 0 0 10px rgba(229, 57, 53, 0.2);
+      }
+      .quiz-opt-label.opt-wrong::before {
+        border-color: #e53935;
+        background: #e53935;
+      }
 
-      /* Stile dinamicamente applicato via JS */
+      /* --- Per-question feedback --- */
       .dynamic-feedback {
         margin-top: 1.5rem;
         padding: 1.2rem;
@@ -1533,21 +1587,142 @@
         display: block;
       }
       .dynamic-feedback.success {
-        background: rgba(80, 160, 80, 0.15);
-        color: #a5d6a5;
-        border-left-color: #6ab06a;
+        background: rgba(76, 175, 80, 0.12);
+        color: #a8e6a8;
+        border-left-color: #4caf50;
       }
       .dynamic-feedback.error {
-        background: rgba(200, 60, 60, 0.15);
+        background: rgba(229, 57, 53, 0.12);
         color: #f0a0a0;
-        border-left-color: #e06060;
+        border-left-color: #e53935;
       }
       .feedback-title {
         font-family: var(--font-head);
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.4rem;
         display: block;
+      }
+
+      /* --- Final result panel --- */
+      .quiz-result {
+        display: none;
+        margin-top: 3rem;
+        border: 1px solid rgba(201, 162, 39, 0.5);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        animation: fadeInUp 0.6s ease-out;
+      }
+      .quiz-result.show {
+        display: block;
+      }
+      .qr-header {
+        padding: 2rem 2.5rem 1.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 162, 39, 0.15),
+          rgba(25, 15, 8, 0.9)
+        );
+        border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .qr-score-circle {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 3px solid var(--gold);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: rgba(201, 162, 39, 0.08);
+        box-shadow: 0 0 20px rgba(201, 162, 39, 0.25);
+      }
+      .qr-pct {
+        font-family: var(--font-title);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .qr-pct-label {
+        font-family: var(--font-title);
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        color: var(--gold-light);
+        margin-top: 0.2rem;
+      }
+      .qr-meta {
+        flex: 1;
+      }
+      .qr-grade {
+        font-family: var(--font-head);
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--parchment-light);
+        margin-bottom: 0.3rem;
+      }
+      .qr-tally {
+        font-family: var(--font-title);
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        color: var(--parchment-dark);
+      }
+      .qr-tally .t-correct { color: #6fcf6f; font-weight: 700; }
+      .qr-tally .t-wrong   { color: #e57373; font-weight: 700; }
+      .qr-comment {
+        padding: 1.5rem 2.5rem;
+        background: rgba(25, 15, 8, 0.7);
+        font-family: var(--font-body);
+        font-style: italic;
+        font-size: 1.1rem;
+        color: var(--parchment-dark);
+        border-bottom: 1px solid rgba(201, 162, 39, 0.15);
+        line-height: 1.7;
+      }
+      .qr-comment::before {
+        content: "\201C";
+        font-size: 2.5rem;
+        color: rgba(201, 162, 39, 0.4);
+        font-family: var(--font-head);
+        vertical-align: -0.4em;
+        margin-right: 0.2rem;
+        line-height: 0;
+      }
+      .qr-footer {
+        padding: 1.5rem 2.5rem;
+        background: rgba(25, 15, 8, 0.85);
+        display: flex;
+        justify-content: flex-end;
+      }
+      .quiz-retry-btn {
+        font-family: var(--font-title);
+        font-size: 0.78rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        background: transparent;
+        border: 2px solid var(--gold);
+        border-radius: 40px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition:
+          background 0.35s ease,
+          color 0.35s ease,
+          box-shadow 0.35s ease,
+          transform 0.35s ease;
+      }
+      .quiz-retry-btn:hover {
+        background: var(--gold);
+        color: var(--ink);
+        box-shadow: 0 6px 20px rgba(201, 162, 39, 0.4);
+        transform: translateY(-3px);
       }
 
       /* ====================================================
@@ -1704,7 +1879,7 @@
 
     <section id="hero">
       <div class="hero-content">
-        <span class="hero-eyebrow">Presentazione scolastica · 2024–2025</span>
+        <span class="hero-eyebrow">Presentazione scolastica · 2025–2026</span>
         <h1 class="hero-title"><em>Machiavelli</em><br />e Ariosto</h1>
         <p class="hero-subtitle">
           Il Rinascimento tra potere, letteratura e disincanto
@@ -1759,6 +1934,24 @@
                 <div class="group-card-value">1469 – 1559</div>
               </div>
             </div>
+            <div class="group-cards" style="margin-top: 1rem;">
+              <div class="group-card">
+                <div class="group-card-title">Componente</div>
+                <div class="group-card-value">Gesso Luca</div>
+              </div>
+              <div class="group-card">
+                <div class="group-card-title">Componente</div>
+                <div class="group-card-value">Roncone Gabriele</div>
+              </div>
+              <div class="group-card">
+                <div class="group-card-title">Componente</div>
+                <div class="group-card-value">Maurizio Samuele</div>
+              </div>
+              <div class="group-card">
+                <div class="group-card-title">Componente</div>
+                <div class="group-card-value">Lorenzo Lavezzi</div>
+              </div>
+            </div>
           </div>
           <div class="intro-visual reveal-right">
             <div class="intro-emblem">
@@ -1783,7 +1976,8 @@
           <span class="ornament-inner">✦</span>
         </div>
 
-        <div class="timeline-h reveal">
+        <div class="timeline-outer reveal">
+          <div class="timeline-h">
           <div class="timeline-event">
             <div class="timeline-dot"></div>
             <div class="timeline-year">1494</div>
@@ -1818,6 +2012,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-year">1559</div>
             <div class="timeline-desc">Pace di Cateau-Cambrésis</div>
+          </div>
           </div>
         </div>
 
@@ -1864,7 +2059,9 @@
         <div class="bio-grid">
           <div class="bio-card reveal-left">
             <div class="bio-card-header">
-              <div class="bio-avatar">M</div>
+              <div class="bio-avatar">
+                <img src="https://github.com/user-attachments/assets/6554e045-1729-47d6-be63-f215a7ce3c07" alt="Ritratto di Niccolò Machiavelli" />
+              </div>
               <div>
                 <div class="bio-name">Niccolò Machiavelli</div>
                 <div class="bio-dates">FIRENZE, 1469 – 1527</div>
@@ -1897,7 +2094,9 @@
 
           <div class="bio-card ariosto reveal-right">
             <div class="bio-card-header">
-              <div class="bio-avatar">A</div>
+              <div class="bio-avatar">
+                <img src="https://github.com/user-attachments/assets/c8f6edf2-61b6-4b7e-841b-26544ccb0392" alt="Ritratto di Ludovico Ariosto" />
+              </div>
               <div>
                 <div class="bio-name">Ludovico Ariosto</div>
                 <div class="bio-dates">REGGIO EMILIA, 1474 – 1533</div>
@@ -2007,63 +2206,120 @@
           <span class="ornament-inner">✦</span>
         </div>
 
-        <div class="accordion reveal delay-3">
-          <div class="accordion-item">
-            <input type="checkbox" id="acc1" class="accordion-toggle" />
-            <label class="accordion-header" for="acc1"
-              ><span class="accordion-title">📐 Struttura e Stile</span
-              ><span class="accordion-arrow">▼</span></label
-            >
-            <div class="accordion-body">
-              <div class="accordion-inner">
-                <div class="compare-row">
-                  <div class="compare-box m">
-                    <span class="compare-label">Machiavelli</span>
-                    <p>
-                      Prosa volgare. Stile asciutto, diretto, argomentativo e
-                      deduttivo.
-                    </p>
-                  </div>
-                  <div class="compare-arrow">⟷</div>
-                  <div class="compare-box a">
-                    <span class="compare-label">Ariosto</span>
-                    <p>
-                      Poesia (Ottava rima). Stile armonioso, classico,
-                      narrazione intrecciata.
-                    </p>
-                  </div>
-                </div>
+        <div class="analisi-comparison reveal delay-3">
+
+          <!-- Intestazione colonne -->
+          <div class="analisi-header-row">
+            <div class="analisi-col-head machiavelli">
+              <span class="analisi-col-name">Machiavelli</span>
+              <span class="analisi-col-years">FIRENZE · 1469 – 1527</span>
+            </div>
+            <div class="analisi-col-head ariosto">
+              <span class="analisi-col-name">Ariosto</span>
+              <span class="analisi-col-years">REGGIO EMILIA · 1474 – 1533</span>
+            </div>
+          </div>
+
+          <!-- I — Forma e Struttura -->
+          <div class="analisi-section">
+            <div class="analisi-section-title">I — Forma e Struttura</div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Genere</span>
+                <p>Trattato politico in prosa volgare, articolato in 26 capitoli</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Genere</span>
+                <p>Poema cavalleresco in 46 canti con struttura intrecciata (entrelacement)</p>
+              </div>
+            </div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Forma</span>
+                <p>Prosa argomentativa; il periodare è lungo, razionale e deduttivo</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Forma metrica</span>
+                <p>Ottava rima (ABABABCC), forma classica del poema cavalleresco</p>
               </div>
             </div>
           </div>
-          <div class="accordion-item">
-            <input type="checkbox" id="acc2" class="accordion-toggle" />
-            <label class="accordion-header" for="acc2"
-              ><span class="accordion-title">🎭 Visione del Mondo</span
-              ><span class="accordion-arrow">▼</span></label
-            >
-            <div class="accordion-body">
-              <div class="accordion-inner">
-                <div class="compare-row">
-                  <div class="compare-box m">
-                    <span class="compare-label">Machiavelli</span>
-                    <p>
-                      L'uomo può piegare la fortuna con la virtù. Realismo
-                      totale.
-                    </p>
-                  </div>
-                  <div class="compare-arrow">⟷</div>
-                  <div class="compare-box a">
-                    <span class="compare-label">Ariosto</span>
-                    <p>
-                      Il mondo è un labirinto illusorio. L'ironia come antidoto
-                      al caos.
-                    </p>
-                  </div>
-                </div>
+
+          <!-- II — Lingua e Stile -->
+          <div class="analisi-section">
+            <div class="analisi-section-title">II — Lingua e Stile</div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Registro</span>
+                <p>Stile asciutto, diretto, argomentativo; lessico preciso e privo di ornamenti retorici</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Registro</span>
+                <p>Stile armonioso e classicheggiante; il modello è Virgilio e la tradizione latina</p>
+              </div>
+            </div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Tono</span>
+                <p>Razionale e distaccato; impersonale nel descrivere le leggi del potere</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Tono</span>
+                <p>Ironico e sornione; l'autore interviene in prima persona con sorridente distacco</p>
               </div>
             </div>
           </div>
+
+          <!-- III — Visione del Mondo -->
+          <div class="analisi-section">
+            <div class="analisi-section-title">III — Visione del Mondo</div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Concezione dell'uomo</span>
+                <p>L'uomo può dominare la Fortuna con la Virtù: ingegno e determinazione sono tutto</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Concezione dell'uomo</span>
+                <p>L'uomo è schiavo delle passioni; la ragione è sistematicamente sconfitta dalla follia</p>
+              </div>
+            </div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Rapporto con la realtà</span>
+                <p>Realismo spietato: si analizza la «verità effettuale», separando morale e politica</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Rapporto con la realtà</span>
+                <p>Relativismo: il mondo è un labirinto senza senso; l'ironia è l'unica risposta lucida</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- IV — Intellettuale e Potere -->
+          <div class="analisi-section">
+            <div class="analisi-section-title">IV — Intellettuale e Potere</div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Posizione</span>
+                <p>Intellettuale militante: offre la propria analisi al principe come strumento di governo</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Posizione</span>
+                <p>Intellettuale di corte: serve il mecenate ma ne critica i limiti con velata ironia</p>
+              </div>
+            </div>
+            <div class="analisi-row">
+              <div class="analisi-cell machiavelli">
+                <span class="analisi-aspect">Eredità critica</span>
+                <p>Fondatore della scienza politica moderna; il termine «machiavellico» ne testimonia la portata rivoluzionaria</p>
+              </div>
+              <div class="analisi-cell ariosto">
+                <span class="analisi-aspect">Eredità critica</span>
+                <p>Massimo esponente del Rinascimento ferrarese; modello della narrativa europea per secoli</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -2106,6 +2362,23 @@
         </p>
         <div class="ornament reveal delay-3">
           <span class="ornament-inner">✦</span>
+        </div>
+
+        <div class="quiz-tracker reveal delay-1">
+          <div class="qt-item qt-correct">
+            <span class="qt-badge" id="qt-correct-num">0</span>
+            <span>Corrette</span>
+          </div>
+          <div class="qt-divider"></div>
+          <div class="qt-item qt-wrong">
+            <span class="qt-badge" id="qt-wrong-num">0</span>
+            <span>Sbagliate</span>
+          </div>
+          <div class="qt-divider"></div>
+          <div class="qt-item qt-remain">
+            <span class="qt-badge" id="qt-remain-num">4</span>
+            <span>Rimanenti</span>
+          </div>
         </div>
 
         <div class="quiz-form reveal delay-1">
@@ -2287,7 +2560,25 @@
             </div>
             <div class="dynamic-feedback"></div>
           </div>
-        </div>
+        </div><!-- /.quiz-form -->
+
+        <!-- Result panel — shown after all questions are answered -->
+        <div class="quiz-result" id="quiz-result">
+          <div class="qr-header">
+            <div class="qr-score-circle">
+              <span class="qr-pct" id="qr-pct">—</span>
+              <span class="qr-pct-label">PUNTEGGIO</span>
+            </div>
+            <div class="qr-meta">
+              <div class="qr-grade" id="qr-grade">—</div>
+              <div class="qr-tally" id="qr-tally">—</div>
+            </div>
+          </div>
+          <div class="qr-comment" id="qr-comment"></div>
+          <div class="qr-footer">
+            <button class="quiz-retry-btn" id="quiz-retry-btn">↺ &nbsp;Riprova il Quiz</button>
+          </div>
+        </div><!-- /.quiz-result -->
       </div>
     </section>
 
@@ -2321,7 +2612,7 @@
         </div>
         <div class="footer-bottom">
           <span class="footer-copy"
-            >LAVORO DI GRUPPO · ANNO SCOLASTICO 2024–2025</span
+            >LAVORO DI GRUPPO · ANNO SCOLASTICO 2025–2026</span
           >
           <span class="footer-motto">«Fecemi la divina potestate...»</span>
         </div>
@@ -2369,51 +2660,188 @@
         { passive: true },
       );
 
-      /* Logica Avanzata Quiz - Gestione Feedback Dinamico */
-      document.querySelectorAll(".quiz-option").forEach((radio) => {
-        radio.addEventListener("change", function () {
-          const container = this.closest(".quiz-q");
-          const feedbackBox = container.querySelector(".dynamic-feedback");
-          const isCorrect = this.dataset.correct === "true";
-          const explanation = this.dataset.explanation;
-          const allLabels = container.querySelectorAll(".quiz-opt-label");
+      /* ================================================================
+         QUIZ — Logica completa
+         Traccia: risposte corrette/sbagliate, aggiorna tracker live,
+         colori persistenti verde/rosso, blocca domande già risposte,
+         pannello finale con percentuale, voto e commento ironico,
+         tasto "Riprova" che resetta tutto.
+      ================================================================ */
+      (function () {
+        const TOTAL = document.querySelectorAll(".quiz-q").length;
 
-          // Reset stili delle etichette nel container corrente
-          allLabels.forEach((lbl) => {
-            lbl.style.borderColor = "rgba(201,162,39,0.15)";
-            lbl.style.background = "rgba(255,255,255,0.02)";
-            lbl.style.color = "var(--parchment-dark)";
+        /* Dati per il pannello finale */
+        const RESULTS = [
+          {
+            min: 100,
+            grade: "10 con lode",
+            comment:
+              "Eccezionale. Nemmeno Machiavelli avrebbe trovato un'obiezione da muovere. Sei il tipo di principe che lui sognava."
+          },
+          {
+            min: 75,
+            grade: "8",
+            comment:
+              "Ottimo. Il Valentino ti avrebbe forse assunto come consigliere… di medio rango. Con prospettive di carriera incerte."
+          },
+          {
+            min: 50,
+            grade: "6",
+            comment:
+              "Sufficiente. Come Ariosto alla corte estense: presente, stipendiato, ma non particolarmente brillante."
+          },
+          {
+            min: 25,
+            grade: "4",
+            comment:
+              "Insufficiente. Il tuo senno è evidentemente rimasto sulla Luna insieme a quello di Orlando. Astolfo ti manda i saluti."
+          },
+          {
+            min: 0,
+            grade: "2",
+            comment:
+              "Catastrofico. Persino Carlo VIII, mentre invadeva l'Italia senza un piano, sapeva dove stava andando. Tu no."
+          }
+        ];
+
+        /* Stato quiz */
+        let correctCount = 0;
+        let wrongCount   = 0;
+        let answered     = 0;
+
+        /* Riferimenti DOM */
+        const qtCorrect = document.getElementById("qt-correct-num");
+        const qtWrong   = document.getElementById("qt-wrong-num");
+        const qtRemain  = document.getElementById("qt-remain-num");
+        const resultPanel  = document.getElementById("quiz-result");
+        const retryBtn     = document.getElementById("quiz-retry-btn");
+
+        /* Aggiorna tracker */
+        function updateTracker() {
+          qtCorrect.textContent = correctCount;
+          qtWrong.textContent   = wrongCount;
+          qtRemain.textContent  = TOTAL - answered;
+        }
+
+        /* Mostra pannello finale */
+        function showResult() {
+          const pct   = Math.round((correctCount / TOTAL) * 100);
+          const entry = RESULTS.find(r => pct >= r.min);
+
+          document.getElementById("qr-pct").textContent   = pct + "%";
+          document.getElementById("qr-grade").textContent = "Voto: " + entry.grade;
+          document.getElementById("qr-tally").innerHTML   =
+            `<span class="t-correct">${correctCount} corrette</span>` +
+            ` &nbsp;·&nbsp; ` +
+            `<span class="t-wrong">${wrongCount} sbagliate</span>` +
+            ` &nbsp;·&nbsp; su ${TOTAL} domande`;
+          document.getElementById("qr-comment").textContent = entry.comment;
+
+          resultPanel.classList.add("show");
+          resultPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+
+        /* Gestione risposta per ogni radio */
+        document.querySelectorAll(".quiz-option").forEach(function (radio) {
+          radio.addEventListener("change", function () {
+            const container   = this.closest(".quiz-q");
+            if (container.classList.contains("answered")) return; /* già risposto */
+
+            const feedbackBox = container.querySelector(".dynamic-feedback");
+            const isCorrect   = this.dataset.correct === "true";
+            const explanation = this.dataset.explanation;
+            const allLabels   = container.querySelectorAll(".quiz-opt-label");
+            const selectedLbl = this.parentElement;
+
+            /* Marca come risposta data */
+            container.classList.add("answered");
+            answered++;
+
+            /* Applica colore persistente a tutti i label (reset prima) */
+            allLabels.forEach(function (lbl) {
+              lbl.classList.remove("opt-correct", "opt-wrong");
+            });
+
+            /* Stato verde/rosso sul card e sul label selezionato */
+            if (isCorrect) {
+              correctCount++;
+              container.classList.add("correct");
+              selectedLbl.classList.add("opt-correct");
+            } else {
+              wrongCount++;
+              container.classList.add("wrong");
+              selectedLbl.classList.add("opt-wrong");
+
+              /* Evidenzia anche la risposta corretta */
+              allLabels.forEach(function (lbl) {
+                const inp = lbl.querySelector(".quiz-option");
+                if (inp && inp.dataset.correct === "true") {
+                  lbl.classList.add("opt-correct");
+                }
+              });
+
+              /* Shake */
+              container.classList.remove("shake");
+              void container.offsetWidth;
+              container.classList.add("shake");
+            }
+
+            /* Feedback testuale */
+            feedbackBox.classList.remove("show");
+            setTimeout(function () {
+              feedbackBox.className = isCorrect
+                ? "dynamic-feedback success show"
+                : "dynamic-feedback error show";
+              feedbackBox.innerHTML = isCorrect
+                ? "<span class='feedback-title'>✓ Risposta Esatta!</span>" + explanation
+                : "<span class='feedback-title'>✗ Risposta Sbagliata</span>" + explanation;
+            }, 20);
+
+            /* Aggiorna tracker */
+            updateTracker();
+
+            /* Pannello finale se tutte le domande sono state risposte */
+            if (answered === TOTAL) {
+              setTimeout(showResult, 600);
+            }
+          });
+        });
+
+        /* Tasto Riprova */
+        retryBtn.addEventListener("click", function () {
+          /* Reset contatori */
+          correctCount = 0;
+          wrongCount   = 0;
+          answered     = 0;
+          updateTracker();
+
+          /* Reset ogni domanda */
+          document.querySelectorAll(".quiz-q").forEach(function (qCard) {
+            qCard.classList.remove("answered", "correct", "wrong", "shake");
+
+            qCard.querySelectorAll(".quiz-opt-label").forEach(function (lbl) {
+              lbl.classList.remove("opt-correct", "opt-wrong");
+            });
+
+            qCard.querySelectorAll(".quiz-option").forEach(function (inp) {
+              inp.checked = false;
+            });
+
+            const fb = qCard.querySelector(".dynamic-feedback");
+            fb.className = "dynamic-feedback";
+            fb.innerHTML = "";
           });
 
-          const selectedLabel = this.parentElement;
+          /* Nascondi pannello risultato */
+          resultPanel.classList.remove("show");
 
-          // Animazione di uscita del box prima di aggiornarlo
-          feedbackBox.classList.remove("show");
-
-          setTimeout(() => {
-            if (isCorrect) {
-              selectedLabel.style.borderColor = "var(--gold)";
-              selectedLabel.style.background = "rgba(201,162,39,0.15)";
-              selectedLabel.style.color = "#fff";
-
-              feedbackBox.className = "dynamic-feedback success show";
-              feedbackBox.innerHTML = `<span class="feedback-title">✓ Risposta Esatta!</span>${explanation}`;
-            } else {
-              selectedLabel.style.borderColor = "#c05050";
-              selectedLabel.style.background = "rgba(200,60,60,0.15)";
-              selectedLabel.style.color = "#fff";
-
-              // Trigger shake animation sul container
-              container.classList.remove("shake");
-              void container.offsetWidth; // Trigger reflow per riavviare l'animazione
-              container.classList.add("shake");
-
-              feedbackBox.className = "dynamic-feedback error show";
-              feedbackBox.innerHTML = `<span class="feedback-title">✗ Risposta Sbagliata</span>${explanation}`;
-            }
-          }, 10);
+          /* Scroll alla sezione quiz */
+          document.getElementById("quiz").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
         });
-      });
+      })();
     </script>
   </body>
 </html>
