@@ -1726,6 +1726,100 @@
       }
 
       /* ====================================================
+       SECTION 7 — BRANI DAI TESTI
+    ==================================================== */
+      .brani-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        margin-top: 3rem;
+      }
+      @media (max-width: 768px) {
+        .brani-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .brano-card {
+        background: rgba(244, 232, 204, 0.12);
+        border: 1px solid rgba(201, 162, 39, 0.35);
+        border-radius: var(--radius);
+        padding: 2.5rem;
+        box-shadow: 0 10px 35px var(--shadow-warm);
+        transition: var(--transition);
+      }
+      .brano-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 45px var(--shadow-warm);
+        border-color: var(--gold);
+      }
+      .brano-author {
+        font-family: var(--font-title);
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--crimson);
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+      .brano-work {
+        font-family: var(--font-head);
+        font-size: 1.3rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--ink);
+        margin-bottom: 0.2rem;
+      }
+      .brano-chapter {
+        font-family: var(--font-title);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--sepia);
+        margin-bottom: 1.8rem;
+        display: block;
+      }
+      .brano-analisi-title {
+        font-family: var(--font-title);
+        font-size: 0.72rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 1.8rem 0 0.7rem;
+        display: block;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+      }
+      .brano-card .brano-analisi-text {
+        font-size: 1rem;
+        color: var(--ink-mid);
+        line-height: 1.75;
+        margin: 0;
+      }
+
+      /* Dedica box inside Opere tab */
+      .dedica-box {
+        margin-top: 2rem;
+        padding: 1.4rem 2rem;
+        background: rgba(201, 162, 39, 0.06);
+        border: 1px dashed rgba(201, 162, 39, 0.4);
+        border-radius: var(--radius);
+      }
+      .dedica-box .dedica-label {
+        font-family: var(--font-title);
+        font-size: 0.68rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.7rem;
+      }
+      .dedica-box p {
+        font-size: 1rem;
+        color: var(--ink-mid);
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      /* ====================================================
        FOOTER
     ==================================================== */
       #footer {
@@ -1872,6 +1966,7 @@
           <li><a href="#opere">Opere</a></li>
           <li><a href="#analisi">Analisi</a></li>
           <li><a href="#giudizio">Giudizio</a></li>
+          <li><a href="#brani">Brani</a></li>
           <li><a href="#quiz">Quiz</a></li>
         </ul>
       </div>
@@ -2169,6 +2264,21 @@
                 ><span class="opera-theme-tag">Virtù e Fortuna</span
                 ><span class="opera-theme-tag">Cesare Borgia</span>
               </div>
+              <div class="dedica-box">
+                <span class="dedica-label">✦ La Dedica</span>
+                <p>
+                  Machiavelli indirizza l'opera a
+                  <strong>Lorenzo de' Medici</strong> (nipote del Magnifico,
+                  1492–1519), allora signore di Firenze. La scelta non è soltanto
+                  formale: dopo anni di esilio e prigionia, Machiavelli sperava
+                  di rientrare nei favori medicei offrendo «questo piccolo dono»
+                  come strumento di governo. Nella dedica si paragona a un
+                  cartografo: «come coloro che disegnano e' paesi si pongono
+                  bassi nel piano a considerare la natura de' monti e de' luoghi
+                  alti…» — un atto di umiltà calcolata e di speranza mai
+                  appagata.
+                </p>
+              </div>
             </div>
             <div class="tab-content" id="content2">
               <div class="opera-header">
@@ -2351,6 +2461,90 @@
       </div>
     </section>
 
+    <section id="brani" class="bg-parchment">
+      <div class="container section-gap">
+        <span class="section-label reveal">Sezione VII</span>
+        <h2 class="section-title reveal delay-1">Brani dai Testi</h2>
+        <p class="section-subtitle reveal delay-2">
+          Testi alla mano: come il contesto storico plasmò le opere di Machiavelli e Ariosto
+        </p>
+        <div class="ornament reveal delay-3">
+          <span class="ornament-inner">✦</span>
+        </div>
+
+        <div class="brani-grid">
+
+          <!-- Brano 1 — Il Principe, Cap. XV -->
+          <div class="brano-card reveal delay-1">
+            <span class="brano-author">Niccolò Machiavelli</span>
+            <div class="brano-work">Il Principe</div>
+            <span class="brano-chapter">Capitolo XV · «De his rebus quibus homines laudantur aut vituperantur»</span>
+
+            <div class="citazione">
+              <p>
+                «Sendo l'intento mio scrivere cosa utile a chi la intende, mi è
+                parso più conveniente andare drieto alla verità effettuale della
+                cosa, che alla imaginazione di essa. E molti si sono imaginati
+                republiche e principati che non si sono mai visti né conosciuti
+                essere in vero.»
+              </p>
+              <cite>— Il Principe, Cap. XV (1513)</cite>
+            </div>
+
+            <span class="brano-analisi-title">⟶ Analisi: il contesto storico nel testo</span>
+            <p class="brano-analisi-text">
+              Con la formula «verità effettuale della cosa», Machiavelli rompe
+              nettamente con la tradizione umanistica degli <em>specula
+              principis</em> — quei manuali che dipingevano un principe ideale,
+              virtuoso e pio. La sua rottura è figlia diretta della crisi italiana:
+              le invasioni di Carlo VIII (1494) e Luigi XII, il crollo delle
+              signorie, la caduta della repubblica fiorentina avevano dimostrato
+              che i modelli ideali erano inutili di fronte alla brutalità della
+              storia. Machiavelli, che aveva visto crollare tutto ciò in cui
+              credeva e aveva subito la prigione nel 1513, risponde con un
+              realismo spietato: la politica deve analizzare l'uomo <em>com'è</em>,
+              non come dovrebbe essere. Il contesto storico non è solo lo sfondo
+              del Principe — è la sua ragione di esistere.
+            </p>
+          </div>
+
+          <!-- Brano 2 — Orlando Furioso, Canto XXXIV -->
+          <div class="brano-card reveal delay-2">
+            <span class="brano-author">Ludovico Ariosto</span>
+            <div class="brano-work">Orlando Furioso</div>
+            <span class="brano-chapter">Canto XXXIV, ott. 75–85 · «Il viaggio di Astolfo sulla Luna»</span>
+
+            <div class="citazione">
+              <p>
+                «Vide il senno di Orlando in un'ampolla, / era il più degno e
+                prezïoso vase: / e pieno di liquor sottile e molle / che a un
+                fiato si potea mandar per l'ase.»
+              </p>
+              <cite>— Orlando Furioso, Canto XXXIV, ott. 85 (ed. 1532)</cite>
+            </div>
+
+            <span class="brano-analisi-title">⟶ Analisi: il contesto storico nel testo</span>
+            <p class="brano-analisi-text">
+              Ariosto costruisce un episodio di geniale ironia: sulla Luna si
+              trovano tutte le cose perdute sulla Terra, e il bene più prezioso
+              custodito lassù è il <em>senno</em> di Orlando — impazzito per
+              amore. Non è semplice fantasia: è una metafora potente del suo
+              tempo. Nel caos delle Guerre d'Italia, dove principi e condottieri
+              sembravano agire in preda alla follia, Ariosto risponde con
+              distacco ironico. Se la razionalità è esiliata sulla Luna, la
+              letteratura cavalleresca — con i suoi paladini, magie e mondi
+              incantati — diventa uno spazio di libertà intellettuale, un rifugio
+              lucido dalla barbarie del presente. Come Machiavelli guarda la
+              realtà in faccia e ne ricava una scienza, Ariosto la guarda con un
+              sorriso amaro e ne ricava un poema: due risposte diverse allo stesso
+              disastro storico.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <section id="quiz" class="bg-dark">
       <div class="container section-gap">
         <span class="section-label reveal">Il Quiz Interattivo</span>
@@ -2376,7 +2570,7 @@
           </div>
           <div class="qt-divider"></div>
           <div class="qt-item qt-remain">
-            <span class="qt-badge" id="qt-remain-num">4</span>
+            <span class="qt-badge" id="qt-remain-num">5</span>
             <span>Rimanenti</span>
           </div>
         </div>
@@ -2556,6 +2750,55 @@
                   data-explanation="L'endecasillabo sciolto (senza rima) sarà molto usato più tardi, nel Neoclassicismo (es. Foscolo) e nel Romanticismo (Leopardi)."
                 />
                 Endecasillabo sciolto</label
+              >
+            </div>
+            <div class="dynamic-feedback"></div>
+          </div>
+          <div class="quiz-q">
+            <div class="quiz-question">
+              <span class="quiz-num">5</span
+              ><span>A chi Machiavelli dedica <em>Il Principe</em>?</span>
+            </div>
+            <div class="quiz-options">
+              <label class="quiz-opt-label"
+                ><input
+                  type="radio"
+                  name="q5"
+                  class="quiz-option"
+                  data-correct="false"
+                  data-explanation="Lorenzo il Magnifico morì nel 1492, ben prima che Machiavelli iniziasse a concepire Il Principe (1513). Non poteva essere il dedicatario."
+                />
+                Lorenzo il Magnifico</label
+              >
+              <label class="quiz-opt-label"
+                ><input
+                  type="radio"
+                  name="q5"
+                  class="quiz-option"
+                  data-correct="true"
+                  data-explanation="Machiavelli dedicò l'opera a Lorenzo de' Medici nipote del Magnifico, allora signore di Firenze, sperando di rientrare nei favori medicei dopo anni di esilio."
+                />
+                Lorenzo de' Medici, nipote del Magnifico</label
+              >
+              <label class="quiz-opt-label"
+                ><input
+                  type="radio"
+                  name="q5"
+                  class="quiz-option"
+                  data-correct="false"
+                  data-explanation="Cesare Borgia è il modello di principe descritto nel testo come esempio di virtù politica, ma non è il destinatario della dedica."
+                />
+                Cesare Borgia</label
+              >
+              <label class="quiz-opt-label"
+                ><input
+                  type="radio"
+                  name="q5"
+                  class="quiz-option"
+                  data-correct="false"
+                  data-explanation="Papa Leone X (Giovanni de' Medici) era il pontefice dell'epoca, ma Machiavelli indirizzò l'opera al ramo fiorentino dei Medici, non al papa."
+                />
+                Papa Leone X</label
               >
             </div>
             <div class="dynamic-feedback"></div>
